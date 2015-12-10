@@ -74,8 +74,8 @@ public class AuthServlet extends HttpServlet {
     			jsonToSend.put("login", userR.getLogin());
     			jsonToSend.put("validAuth", true);
             	jsonToSend.put("role", userR.getRole());
-        		response.sendRedirect("acceuil.html");
-    		}
+
+            }
     		else{
     			jsonToSend = makeDefaultResponse();
     			//afficher wrong password
@@ -91,6 +91,7 @@ public class AuthServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println(jsonToSend.toString());
         out.close();
+        
 	}
 	private UserModel getUserFromRequest(String req){
 		UserModel user = new UserModel("", "", "", "", "");
