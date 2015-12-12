@@ -5,7 +5,7 @@ import entity.UserModelEntity;
 
 public class DataContainer {
 	
-	private UserModel bob = new UserModel("jdoe", "pwd", "john", "doe", "admin");
+	private UserModel bob = new UserModel("jdoe", "pwd", "john", "doe", false);
 
 	public Boolean checkUser(UserModel user) {
 		Boolean isValid = false;
@@ -27,13 +27,13 @@ public class DataContainer {
 	}
 	
 	public UserModel EntityToModel(UserModelEntity userE){
-		UserModel user = new UserModel(userE.getLogin(), userE.getPwd(), userE.getPrenom(), userE.getNom(), userE.getRole());
+		UserModel user = new UserModel(userE.getLogin(), userE.getPwd(), userE.getPrenom(), userE.getNom(), userE.getIsCreate());
 		return user;
 	}
 	
 	public UserModelEntity ModelToEntity(UserModel user){
 		UserModelEntity userE = new UserModelEntity();
-		userE.setUserData(user.getLogin(), user.getPwd(), user.getPrenom(), user.getNom(), user.getRole());
+		userE.setUserData(user.getLogin(), user.getPwd(), user.getPrenom(), user.getNom(), user.getIsCreate());
 		return userE;
 	}
 	

@@ -4,20 +4,32 @@ import java.io.Serializable;
 
 public class UserModel implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String login;
 	private String pwd;
 	private String nom;
 	private String prenom;
-	private String role;
+	private Boolean isCreate;
 	
+	public Boolean getIsCreate() {
+		return isCreate;
+	}
+
+	public void setIsCreate(Boolean isCreate) {
+		this.isCreate = isCreate;
+	}
+
 	public UserModel(String login, String pwd, String nom, String prenom,
-			String role) {
+			Boolean isCreate) {
 		super();
 		this.login = login;
 		this.pwd = pwd;
 		this.nom = nom;
 		this.prenom = prenom;
-		this.role = role;
+		this.isCreate = isCreate;
 	}
 	
 	public String getLogin() {
@@ -44,16 +56,11 @@ public class UserModel implements Serializable {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
+
 	
 	@Override
 	public String toString() {
 		return "UserModel [login=" + login + ", pwd=" + pwd + ", nom=" + nom
-				+ ", prenom=" + prenom + ", role=" + role + "]";
+				+ ", prenom=" + prenom + ", isCreate=" + isCreate + "]";
 	}
 }

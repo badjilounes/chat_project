@@ -49,7 +49,7 @@ public class AuthServlet extends HttpServlet {
 		System.out.println("(Servlet) Request string " + jsonString);
 		
 		JSONObject jsonReceive = (JSONObject) JSONValue.parse(jsonString);
-		UserModel user = new UserModel("", "", "", "", "");
+		UserModel user = new UserModel("", "", "", "", false);
 		
 		// Handle Request string of JSON type  "{param:value, param2:value2}" and of classic type "param=value&param2=value2"
 		if(jsonReceive == null)
@@ -59,6 +59,7 @@ public class AuthServlet extends HttpServlet {
 			user.setLogin(login);
 			String pwd = (String) jsonReceive.get("pwd");
 			user.setPwd(pwd);
+			user.setIsCreate(true);
 			if("".equals(user.getLogin()) || "".equals(user.getPwd())){
 				user = null;
 			}
@@ -66,6 +67,7 @@ public class AuthServlet extends HttpServlet {
 		
         JSONObject jsonToSend = new JSONObject();
         if (user != null){
+        	user.setIsCreate(true);
             System.out.println("(Servlet) User from request: " + user.toString());
         	sender.sendMessage(user);
     		UserModel userR = receiver.receiveMessage();
@@ -73,8 +75,7 @@ public class AuthServlet extends HttpServlet {
     		if(userR != null){
     			jsonToSend.put("login", userR.getLogin());
     			jsonToSend.put("validAuth", true);
-            	jsonToSend.put("role", userR.getRole());
-
+            	jsonToSend.put("isCreate", userR.getIsCreate());
             }
     		else{
     			jsonToSend = makeDefaultResponse();
@@ -86,15 +87,23 @@ public class AuthServlet extends HttpServlet {
         }
         
         System.out.println("(Servlet) JSON To Send: " + jsonToSend);
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        out.println(jsonToSend.toString());
-        out.close();
-        
+       
+        Boolean isValid = (Boolean)jsonToSend.get("validAuth");
+        if(isValid){
+        	response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setContentType("text/html");
+            response.sendRedirect("home.html");
+        }
+        else{
+        	 response.setHeader("Access-Control-Allow-Origin", "*");
+             response.setContentType("application/json");
+             PrintWriter out = response.getWriter();
+             out.println(jsonToSend.toString());
+             out.close();
+        }
 	}
 	private UserModel getUserFromRequest(String req){
-		UserModel user = new UserModel("", "", "", "", "");
+		UserModel user = new UserModel("", "", "", "", false);
 		if(req.contains("&")){
 			String[] paramsplit = req.split("&");
 			for(String params : paramsplit){
@@ -118,7 +127,7 @@ public class AuthServlet extends HttpServlet {
         JSONObject jsonToSend = new JSONObject();
         jsonToSend.put("login", "");
 		jsonToSend.put("validAuth", false);
-    	jsonToSend.put("role", "");
+    	jsonToSend.put("isCreate", false);
     	return jsonToSend;
 	}
 	

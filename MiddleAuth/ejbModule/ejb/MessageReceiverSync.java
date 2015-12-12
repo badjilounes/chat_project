@@ -1,7 +1,6 @@
 package ejb;
 
 import javax.annotation.Resource;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.jms.JMSConsumer;

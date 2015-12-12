@@ -50,9 +50,17 @@ public class AnotherMsgDriven implements MessageListener {
 				ObjectMessage msg = (ObjectMessage) message;
 				if( msg.getObject() instanceof UserModel){
 					UserModel user=(UserModel) msg.getObject();
-					UserModelEntity userE = userDAO.checkUser(dataContainer.ModelToEntity(user));
-//					UserModelEntity userE = userDAO.create(dataContainer.ModelToEntity(user));
+					UserModelEntity userE=null;
+					if(!(user.getIsCreate())){
+						userE = userDAO.create(dataContainer.ModelToEntity(user));
+						userE.setIsCreate(true);
+					}
+					else{
+						userE = userDAO.checkUser(dataContainer.ModelToEntity(user));
+					}
+					
 					if(userE != null){
+						System.out.println("Création enregistrement !");
 						UserModel userM = dataContainer.EntityToModel(userE);	
 						sender.sendMessage(userM);
 					}

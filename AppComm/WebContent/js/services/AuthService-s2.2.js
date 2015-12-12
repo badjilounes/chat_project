@@ -23,7 +23,7 @@ function authFnc($http,$q) {
 //	                    response.status(401).send("");
 	                }
 	                else{
-	                    //console.log("Body req: " + body + " " + JSON.stringify(body));
+	                    console.log("Body req: " + body + " " + JSON.stringify(body));
 	                    if(body.validAuth){
 	                    	var page="";
 	                        var user = authUser.createUser({login: params.login, pwd: params.pwd, role: body.role});

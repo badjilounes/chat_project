@@ -23,12 +23,17 @@ public class UserDAO implements UserDAOLocal {
 	public UserModelEntity create(UserModelEntity user) {
 //		em.persist(user);
 //		return user;
+//		if(!user.getIsCreate()){
+//			
+		
 		if(em.find(UserModelEntity.class, user.getLogin()) == null){
 			em.persist(user);
 		return user;
 		}
 		System.out.println("User " + user.getLogin() + " already exist");
 		return null;
+		
+//		return null;
 	}
 
 	@Override
