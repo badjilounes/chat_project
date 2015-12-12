@@ -1,27 +1,54 @@
 
 <html>
 <head>
-	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="lib/bootstrap-3.3.5-dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/index.css" />
+	<link rel="stylesheet" href="css/signup.css" />
+	
+	
     <script src="js/jquery-1.11.3.min.js"></script>
 <!--     <title>INDEX PAGE</title> -->
 </head>
-			
-		<div class="span3">
+<body class="container-fluid">
+	
+		
+<div class="row">
+  <div class="col-xs-6 col-sm-4"></div>
+  <div class="col-xs-6 col-sm-4">
+  
+  <div class="span3">
 		    <h2>Sign Up</h2>
+		    
 		    <form role="form" class="login-form" action="/AppComm/Sign" method="post">
+		    					<div class="divider-form"></div>
+		    
 		    <label class="sr-only" for="login">Login</label>
-		    <input id="login" type="text" name="login" class="span3">
+		    <input id="login" type="text" name="login" class="span3" placeholder="login">
+		    					<div class="divider-form"></div>
+		    
 		    <label class="sr-only" for="pwd">Password</label>
-		    <input id="pwd" type="password" name="pwd" class="span3">
+		    <input id="pwd" type="password" name="pwd" class="span3" placeholder="password">
+		    					<div class="divider-form"></div>
+		    
 		    <label class="sr-only" for="nom">Nom</label>
-		    <input id="nom" type="text" name="nom" class="span3">
+		    <input id="nom" type="text" name="nom" class="span3" placeholder="nom">
+		    					<div class="divider-form"></div>
+		    
 		    <label class="sr-only" for="prenom">Prénom</label>
-		    <input id="prenom" type="text" name="prenom" class="span3">
+		    <input id="prenom" type="text" name="prenom" class="span3" placeholder="prenom">
+		    					<div class="divider-form"></div>
+		    
 		    <label><input type="checkbox" name="terms"> I agree with the <a href="#">Terms and Conditions</a>.</label>
 		    <input type="submit" value="Sign up" class="btn btn-primary pull-right">
 		    <div class="clearfix"></div>
 		    </form>
 		</div>
-
+ 
+  </div>
+  <!-- Optional: clear the XS cols if their content doesn't match in height -->
+  <div class="clearfix visible-xs-block"></div>
+  <div class="col-xs-6 col-sm-4"></div>
+</div>	
+		
 </body>
 </html>
