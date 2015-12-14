@@ -14,37 +14,42 @@ function authFnc($http,$q) {
 	    params["login"]=login;
 	    params["pwd"]=pwd;
 		var deferred = $q.defer();
-	        // *** Authentication request to JEE WebService ***
-	    $http.post("/AppComm/Auth",
-	    {login: params.login, pwd: params.pwd},
-	            function(err, res, body){
-	                if(err){
-	                    console.log(err);
-//	                    response.status(401).send("");
-	                }
-	                else{
-	                    console.log("Body req: " + body + " " + JSON.stringify(body));
-	                    if(body.validAuth){
-	                    	var page="";
-	                        var user = authUser.createUser({login: params.login, pwd: params.pwd, role: body.role});
-	                        page="home.html";
-	                    }	
-	                    else{
-	                    	console.log("Erreur 403 - Access Forbidden");
-//	                        response.status(403).send("Access Forbidden");
-	                    }
-	                }
-	        })
-	    
+	    // *** Authentication request to JEE WebService ***
+//	    $http.get("/AppComm/Auth",
+//	            function(err, data, res){
+//	                if(err){
+//	                    console.log(err);
+////	                    response.status(401).send("");
+//	                }
+//	                else{
+//	                    console.log("Bool resp: " + res + " " + JSON.stringify(res));
+//	                    if(res){
+//	                    
+//	                        var user = {login: params.login, pwd: params.pwd, validAuth: res};
+//	                       
+//	                    }	
+//	                    else{
+//	                    	console.log("Erreur 403 - Access Forbidden");
+////	                        response.status(403).send("Access Forbidden");
+//	                    }
+//	                }
+//	        })
+		$http({
+	        method: 'GET',
+	        url: '/AppComm/Auth',
+	     })
 
 		.success(function(data) {
-            deferred.resolve({"user":data.user, page: data.page, "validAuth": true, msg: ""});
+			if(data){
+				deferred.resolve({"user":{"login": login, "pwd": pwd}, "validAuth": true, msg: ""});
+			}
+			else{
+				 var msg = "Authentification failed";
+		         deferred.reject({"user":{},"ValidAuth": false, msg: msg});
+			}
 		})
         .error(function(data) {
-            var msg = "";
-            if(data && data.msg)
-                msg = data.msg;
-            deferred.reject({"user":{},"ValidAuth": false, msg: msg});
+           console.log("Erreur requête get ! ");
         });
 	return deferred.promise;
 	}

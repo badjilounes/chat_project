@@ -74,6 +74,7 @@ public class SignServlet extends HttpServlet {
 			}
 			JSONObject jsonToSend = new JSONObject();
 	        if (user != null){
+	        	//Allows to subscribe into the database
 	        	user.setIsCreate(false);
 	            System.out.println("(Servlet) User from request: " + user.toString());
 	        	sender.sendMessage(user);
