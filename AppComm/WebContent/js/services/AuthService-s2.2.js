@@ -15,28 +15,10 @@ function authFnc($http,$q) {
 	    params["pwd"]=pwd;
 		var deferred = $q.defer();
 	    // *** Authentication request to JEE WebService ***
-//	    $http.get("/AppComm/Auth",
-//	            function(err, data, res){
-//	                if(err){
-//	                    console.log(err);
-////	                    response.status(401).send("");
-//	                }
-//	                else{
-//	                    console.log("Bool resp: " + res + " " + JSON.stringify(res));
-//	                    if(res){
-//	                    
-//	                        var user = {login: params.login, pwd: params.pwd, validAuth: res};
-//	                       
-//	                    }	
-//	                    else{
-//	                    	console.log("Erreur 403 - Access Forbidden");
-////	                        response.status(403).send("Access Forbidden");
-//	                    }
-//	                }
-//	        })
+
 		$http({
 	        method: 'GET',
-	        url: '/AppComm/Auth',
+	        url: '/AppComm/Auth'
 	     })
 
 		.success(function(data) {

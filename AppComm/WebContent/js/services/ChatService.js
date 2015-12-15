@@ -1,19 +1,24 @@
-angular. module ('ChatService', []).service('chat',chatFnc);
-chatFnc.$inject=['$http','$q'];
+angular. module ('chatService', []).service('chat',chatFnc);
+chatFnc.$inject=['$http','$q','$scope','$http'];
 
-function chatFnc($http,$q) {
+function chatFnc($http,$q, $http,$scope) {
 	var userMap={};
 
 	var fncContainer={
-		localChatFct: localChatFct,
+		localChatFct: localChat,
 		userList: userList
 	};
-	function localChatFct(login,pwd){
+	
+	function localChat(usr1,usr2,date,content){
 		
 	 
 	    var params = {};
-	    params["login"]=login;
-	    params["pwd"]=pwd;
+	    params["usr1"]=usr1;
+	    params["usr2"]=usr2;
+	    params["date"]=date;
+	    params["content"]=content;
+
+	    
 		var deferred = $q.defer();
 	    // *** Messaging with JEE WebService ***
 
@@ -24,11 +29,11 @@ function chatFnc($http,$q) {
 
 		.success(function(data) {
 			if(data){
-				deferred.resolve({"user":{"login": login, "pwd": pwd}, "validAuth": true, msg: ""});
+				deferred.resolve({"chat":{"usr1": usr1, "usr2": usr2, "date": date, "content": content}});
 			}
 			else{
-				 var msg = "Authentification failed";
-		         deferred.reject({"user":{},"ValidAuth": false, msg: msg});
+				 var msg = "METHOD GET FAILED !";
+		         deferred.reject({"chat":{}, msg: msg});
 			}
 		})
         .error(function(data) {

@@ -18,11 +18,10 @@ function loginCrtFnt($scope, $log, $window, auth){
             function(payload){
             	if(auth_response){
             		   $log.info("login success: " + JSON.stringify(payload));
+            		   $scope.chatUser.usr1=user.login;
             		   $window.location.href = "addContact.html";
 //            		   
-//            		   if(payload.user.login !== undefined){
-//                           $window.localStorage.setItem("idtoken", payload.user.login);
-//                       }
+
             	}
 
             },

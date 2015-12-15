@@ -89,7 +89,7 @@ public class SignServlet extends HttpServlet {
 	            }
 	    		else{
 	    			jsonToSend.put("isCreate", false);
-	    			//afficher wrong password
+
 	    		}
 	        }
 	        else{

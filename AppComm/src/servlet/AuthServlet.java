@@ -29,7 +29,7 @@ public class AuthServlet extends HttpServlet {
 	
 	@EJB
 	MessageReceiverSyncLocal receiver;
-	
+	Boolean isValidAuth=false;
     public AuthServlet() {
         super();
     }
@@ -38,21 +38,18 @@ public class AuthServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Boolean isValidAuth=null;
-		UserModel userR = receiver.receiveMessage();
-		if(userR != null){
-			isValidAuth = true;
-		}else{
-			isValidAuth = false;
-		}
 		
-		response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setContentType("application/json");
-        System.out.println("res: " + isValidAuth);
-        PrintWriter out = response.getWriter();
-        out.println(isValidAuth.toString());
-        out.flush();
-        out.close();
+		
+
+			response.setHeader("Access-Control-Allow-Origin", "*");
+	        response.setContentType("application/json");
+	        System.out.println("res: " + isValidAuth);
+	        PrintWriter out = response.getWriter();
+	        out.println(isValidAuth.toString());
+	        out.flush();
+	        out.close();
+
+		
 			
 
 		
@@ -62,7 +59,7 @@ public class AuthServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 String jsonString = IOUtils.toString(request.getInputStream());
+		    String jsonString = IOUtils.toString(request.getInputStream());
 			System.out.println("(Servlet) Request string " + jsonString);
 			
 			JSONObject jsonReceive = (JSONObject) JSONValue.parse(jsonString);
@@ -96,7 +93,6 @@ public class AuthServlet extends HttpServlet {
 	            }
 	    		else{
 	    			jsonToSend = makeDefaultResponse();
-	    			//afficher wrong password
 	    		}
 	        }
 	        else{
